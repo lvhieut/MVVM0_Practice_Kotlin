@@ -10,18 +10,18 @@ import com.example.mvvm_practice_kotlin.R
 import com.example.mvvm_practice_kotlin.model.Contacts
 
 
+
 class ContactsAdapter(private val list: List<Contacts>,private val context: Context) :
     RecyclerView.Adapter<ContactsAdapter.ContactsViewHolder>() {
 
-
     class ContactsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val tvName: TextView = itemView.findViewById(R.id.tvName)
-        private val tvPhoneNum: TextView = itemView.findViewById(R.id.tvNumberPhone)
+         val tv_Name: TextView = itemView.findViewById(R.id.tvName)
+         val tv_PhoneNum: TextView = itemView.findViewById(R.id.tvNumberPhone)
 
         fun bind(contacts: Contacts) {
-            tvName.text = contacts.name
-            tvPhoneNum.text = contacts.phone
+            tv_Name.text = contacts.name
+            tv_PhoneNum.text = contacts.phone
         }
 
     }
@@ -34,7 +34,7 @@ class ContactsAdapter(private val list: List<Contacts>,private val context: Cont
 
     override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {
         holder.bind(list[position])
-        holder.itemView.requestLayout()
+        holder.itemView.requestLayout()// yêu cầu cập nhật lại giao diện
     }
 
 

@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
     <TextView
         android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hieu"
-        android:textSize="20sp"
+        android:text="L Hiếu"
+        android:layout_marginStart="20dp"
+        android:textSize="25sp"
         android:layout_marginTop="5dp"
         android:textColor="@color/black"
         tools:ignore="HardcodedText" />
@@ -17,9 +18,11 @@
         android:id="@+id/tvNumberPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
         android:textSize="20sp"
+        android:textStyle="bold"
         android:text="0124124015"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:textColor="@color/black"
         tools:ignore="HardcodedText" />
 

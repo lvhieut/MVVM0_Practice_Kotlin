@@ -23,28 +23,27 @@ import com.example.mvvm_practice_kotlin.view.adapter.ContactsAdapter
 class ContactsFragment : Fragment() {
     private val binding by lazy { FragmentContactsBinding.inflate(layoutInflater) }
 
+      lateinit var mcontext: Context
+
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        this.mcontext = context
     }
-    val contacts : Contacts = Contacts()
-    private var listContacts: ArrayList<Contacts> = arrayListOf(contacts)
+
+    private var listContacts: ArrayList<Contacts> = arrayListOf()
 
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_contacts, container, false)
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addControl()
         showAllContacts()
+        addControl()
+
 
     }
 
@@ -60,26 +59,32 @@ class ContactsFragment : Fragment() {
     }
     @SuppressLint("Range")
     private fun readContact(){
-        val phones: Cursor? = context?.contentResolver?.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC")
-        while (phones!!.moveToNext()) {
-            val id = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID))
-            val name = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
-            val phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+        val cursor: Cursor? = context?.contentResolver?.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC")
+        if(cursor!!.count > 0){
+            while (cursor!!.moveToNext()) {
+                val id = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID))
+                val name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+                val phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
 
                 val contacts = Contacts(id.toInt(), name, phoneNumber)
 //            val contacts = Contacts()
-            listContacts.add(contacts)
-            Log.d("name>>", name + "  " + phoneNumber)
+                listContacts.add(contacts)
+                Log.d("name>>", name + "  " + phoneNumber)
+            }
         }
-        phones.close()
+
+
+
+        cursor.close()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun addControl(){
-        val adapter = context?.let { ContactsAdapter(listContacts, it) }
+        val adapter = ContactsAdapter(listContacts,mcontext)
         binding.recycleContacts.layoutManager = LinearLayoutManager(context)
+        binding.recycleContacts.hasFixedSize()
         binding.recycleContacts.adapter = adapter
-        adapter?.notifyDataSetChanged()
+
     }
 
 }
