@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/baseline_email_24.xml" value="0.1535" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/baseline_lock_24.xml" value="0.1605" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/buttoncustom.xml" value="0.1535" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/edt_find.xml" value="0.1605" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/ic_baseline_find_in_page_24.xml" value="0.1605" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1605" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/ic_baseline_keyboard_backspace_24.xml" value="0.1605" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/input.xml" value="0.1535" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/layout/activity_home.xml" value="0.25416666666666665" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/layout/activity_main.xml" value="0.24010416666666667" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/layout/activity_splashscreen2.xml" value="0.25416666666666665" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/layout/fragment_contacts.xml" value="0.25416666666666665" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/layout/view_item.xml" value="0.264" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/menu/bottom_nav.xml" value="0.11197916666666667" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/menu/bottom_navigationbar.xml" value="0.190625" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
