@@ -25,6 +25,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), OnCallBack {
 
+
     val loginViewModel: LoginViewModel by viewModels<LoginViewModel>()
 
     val binding by lazy {
@@ -111,6 +112,7 @@ class MainActivity : AppCompatActivity(), OnCallBack {
     override fun InvalidEmail() {
         Toast.makeText(this, "Email or password is incorrect", Toast.LENGTH_LONG).show()
     }
+
 
 
 }

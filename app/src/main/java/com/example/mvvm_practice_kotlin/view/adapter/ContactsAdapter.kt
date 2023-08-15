@@ -1,5 +1,6 @@
 package com.example.mvvm_practice_kotlin.view.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -7,14 +8,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm_practice_kotlin.R
-import com.example.mvvm_practice_kotlin.model.Contacts
+
+import com.example.mvvm_practice_kotlin.model.entities.Contacts
 
 
 
-class ContactsAdapter(private val list: List<Contacts>,private val context: Context) :
+class ContactsAdapter(private var list: List<Contacts>, private val context: Context) :
     RecyclerView.Adapter<ContactsAdapter.ContactsViewHolder>() {
 
-    class ContactsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ContactsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
          val tv_Name: TextView = itemView.findViewById(R.id.tvName)
          val tv_PhoneNum: TextView = itemView.findViewById(R.id.tvNumberPhone)
@@ -23,8 +25,14 @@ class ContactsAdapter(private val list: List<Contacts>,private val context: Cont
             tv_Name.text = contacts.name
             tv_PhoneNum.text = contacts.phone
         }
-
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun  setFilteredList(mList: List<Contacts>){
+        this.list = mList as ArrayList<Contacts>
+        notifyDataSetChanged()
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsViewHolder {
         val view: View = LayoutInflater.from(context).inflate(R.layout.view_item, parent, false)
@@ -41,5 +49,7 @@ class ContactsAdapter(private val list: List<Contacts>,private val context: Cont
     override fun getItemCount(): Int {
         return list.size
     }
+
+
 
 }
