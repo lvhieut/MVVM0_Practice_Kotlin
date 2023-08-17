@@ -8,10 +8,14 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "contacts")
 data class Contacts(
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = 0,
+    var id: Int = 0,
     @ColumnInfo(name = "name")
-    val name: String? = null,
+    var name: String = "",
     @ColumnInfo(name = "numberPhone")
-    val phone: String? = null
+    var phone: String = "",
+    @ColumnInfo(name = "viewtype")
+    var viewType: Int = -1
 )
+
+
 

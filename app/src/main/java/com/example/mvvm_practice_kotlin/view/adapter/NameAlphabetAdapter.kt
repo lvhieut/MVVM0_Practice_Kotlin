@@ -1,50 +1,40 @@
 package com.example.mvvm_practice_kotlin.view.adapter
 
-import android.util.Log
+import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm_practice_kotlin.R
+import com.example.mvvm_practice_kotlin.comon.Common
 import com.example.mvvm_practice_kotlin.model.entities.Contacts
+import com.google.android.material.internal.TextDrawableHelper
 
-class NameAlphabetAdapter(private val classes: List<Contacts>) : RecyclerView.Adapter<NameAlphabetAdapter.ClassViewHolder>() {
-    class ClassViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(contacts: Contacts){
-            tvNameAlphabet.text = (contacts.name!!.first().toString())
-            Log.d("Test", "-------------- ${contacts.name.first()}")
-            recyclerPerson.layoutManager = LinearLayoutManager(itemView.context)
-            recyclerPerson.adapter = ContactsAdapter(listOf(contacts),itemView.context)
-        }
-        val tvNameAlphabet: TextView = itemView.findViewById(R.id.tvNameAlphabet)
-        val recyclerPerson: RecyclerView = itemView.findViewById(R.id.recycleName)
+class NameAlphabetAdapter(private var list: List<Contacts>) : RecyclerView.Adapter<NameAlphabetAdapter.MyViewHolder>() {
+
+    var alphabetList: List<String>
+
+    init {
+        alphabetList = Common.genAlphabetList()
     }
 
-
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClassViewHolder {
-        val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.name_alphabet_item, parent, false)
-        return ClassViewHolder(view)
+    inner class MyViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview) {
+        lateinit var alphabet_img: ImageView
     }
 
-    override fun onBindViewHolder(holder: ClassViewHolder, position: Int) {
-        val contactClasses = classes[position]
-        holder.bind(contactClasses)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val itemview = LayoutInflater.from(parent.context).inflate(R.layout.activity_alphabet,parent,false)
+        return MyViewHolder(itemview)
+    }
+
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
     }
 
     override fun getItemCount(): Int {
-        return classes.size
+        return alphabetList.size
     }
-    fun getFirstCharacter(inputString: String): String {
-        return if (inputString.isNotEmpty()) {
-            inputString[0].toString()
-        } else {
-            "not success"
-        }
-    }
+
 }

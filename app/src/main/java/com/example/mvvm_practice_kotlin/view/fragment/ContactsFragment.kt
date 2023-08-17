@@ -23,6 +23,8 @@ import com.example.mvvm_practice_kotlin.model.NameAlphabet
 import com.example.mvvm_practice_kotlin.model.entities.Contacts
 import com.example.mvvm_practice_kotlin.view.adapter.ContactsAdapter
 import com.example.mvvm_practice_kotlin.view.adapter.NameAlphabetAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
@@ -31,6 +33,7 @@ class ContactsFragment : Fragment() {
     private val binding by lazy { FragmentContactsBinding.inflate(layoutInflater) }
 
     lateinit var mcontext: Context
+
     var listContacts: ArrayList<Contacts> = arrayListOf()
     private lateinit var adapterr: ContactsAdapter
 
@@ -60,11 +63,8 @@ class ContactsFragment : Fragment() {
         adapterr = ContactsAdapter(listContacts, mcontext)
         binding.recycleContacts.adapter = adapterr
 
-
         showAllContacts()
         addControl()
-
-
 
         binding.edtSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -74,7 +74,6 @@ class ContactsFragment : Fragment() {
                 binding.edtSearchView.onActionViewExpanded()
                 binding.edtSearchView.setIconified(false)
                 binding.edtSearchView.clearFocus()
-
                 return false
             }
 
@@ -90,25 +89,16 @@ class ContactsFragment : Fragment() {
         binding.recycleContacts.adapter = adapter
         if (newText != null) {
             val filteredList = ArrayList<Contacts>()
-            for (i in listContacts) {
-                if (i.name?.toLowerCase(Locale.ROOT)!!.contains(newText)) {
+            for (i in listContacts)
+                if (i.name?.toLowerCase(Locale.ROOT)!!.contains(newText) || i.phone?.contains(newText) == true) {
                     filteredList.add(i)
                 }
-            }
             if (filteredList.isEmpty()) {
             } else {
                 adapter.setFilteredList(filteredList)
             }
         }
     }
-
-
-
-
-    private fun firstChar(newText: String?) {
-
-    }
-
 
     private fun showAllContacts() {
         if (context?.let {
@@ -131,7 +121,6 @@ class ContactsFragment : Fragment() {
     @SuppressLint("Range")
     private fun readContact() {
 
-
         var contacts = Contacts()
 
         val cursor: Cursor? = context?.contentResolver?.query(
@@ -150,16 +139,18 @@ class ContactsFragment : Fragment() {
                 val phoneNumber =
                     cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
 
-                contacts = Contacts(id.toInt(), name, phoneNumber)
+                contacts = Contacts(id.toInt(), name, phoneNumber, -1)
                 listContacts.add(contacts)
 
-//                if (!coroutineStarted){
-//                    coroutineStarted = true
-//                    CoroutineScope(Dispatchers.IO).launch {
-//                        App.database.contactDao().insertContact(contacts)
-//                            Log.d("Database","${App.database.contactDao().getAllContacts()} ")
-//                    }
-//                }
+
+//                 đưa vào database
+                if (!coroutineStarted){
+                    coroutineStarted = true
+                    CoroutineScope(Dispatchers.IO).launch {
+                        App.database.contactDao().insertContact(contacts)
+                            Log.d("Database","${App.database.contactDao().getAllContacts()} ")
+                    }
+                }
                 Log.d("name>> ", name + "  " + phoneNumber)
             }
         }
@@ -167,7 +158,7 @@ class ContactsFragment : Fragment() {
     }
 
     fun addControl() {
-        val adapter = NameAlphabetAdapter(listContacts)
+        val adapter = ContactsAdapter(listContacts,mcontext)
         binding.recycleContacts.layoutManager = LinearLayoutManager(context)
         binding.recycleContacts.hasFixedSize()
         binding.recycleContacts.adapter = adapter

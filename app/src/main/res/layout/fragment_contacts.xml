@@ -94,6 +94,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            tools:listitem="@layout/name_alphabet_item" />
+            tools:listitem="@layout/activity_alphabet" />
     </LinearLayout>
 </layout>
