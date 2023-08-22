@@ -11,6 +11,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.mvvm_practice_kotlin.App
 import com.example.mvvm_practice_kotlin.databinding.FragmentPopUpBinding
 import com.example.mvvm_practice_kotlin.model.entities.Contacts
+import com.example.mvvm_practice_kotlin.utils.OnContactAddedListener
 import com.example.mvvm_practice_kotlin.view.adapter.ContactsAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +24,7 @@ class PopUpFragment : DialogFragment() {
 
     private lateinit var contactName: String
     private lateinit var contactNumber: String
+    public var contactAddedListener : OnContactAddedListener? = null
 
 
     var listContacts: ArrayList<Contacts> = arrayListOf()
@@ -39,6 +41,9 @@ class PopUpFragment : DialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        if (context is OnContactAddedListener) {
+            contactAddedListener = context
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,14 +54,16 @@ class PopUpFragment : DialogFragment() {
         }
 
         binding.btnOk.setOnClickListener {
+
             contactName = binding.edtAddName.text.toString()
             contactNumber = binding.edtAddNumber.text.toString()
 
             val newContact = Contacts(name = contactName, phone = contactNumber)
             try {
                 addContactToRoom(newContact)
+                contactAddedListener?.onContactAdded(newContact) // callback
                 dismiss()
-                udateRecycleView()
+
             } catch (e: Exception){
                 Log.e("Add contact", "Error: ${e.message}")
             }
@@ -72,7 +79,7 @@ class PopUpFragment : DialogFragment() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun udateRecycleView() {
+    private fun udateData() {
         try {
             CoroutineScope(Dispatchers.IO).launch {
                 val contactList = App.database.contactDao().getAllContacts()
@@ -81,6 +88,7 @@ class PopUpFragment : DialogFragment() {
                 adapter?.updateData(listContacts)
                 adapter?.notifyDataSetChanged()
                 Log.d("TAG", "${App.database.contactDao().getAllContacts()} ")
+                adapter?.notifyItemInserted(listContacts.size -1)
             }
         } catch (e: Exception) {
             Log.d("new data", "${e.message}")

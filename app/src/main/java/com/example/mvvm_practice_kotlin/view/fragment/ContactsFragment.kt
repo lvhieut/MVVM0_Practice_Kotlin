@@ -20,20 +20,23 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm_practice_kotlin.App
 import com.example.mvvm_practice_kotlin.NavVisibilityListener
+import com.example.mvvm_practice_kotlin.R
 import com.example.mvvm_practice_kotlin.comon.Common
 import com.example.mvvm_practice_kotlin.databinding.FragmentContactsBinding
 import com.example.mvvm_practice_kotlin.model.entities.Contacts
+import com.example.mvvm_practice_kotlin.utils.OnContactAddedListener
 import com.example.mvvm_practice_kotlin.view.adapter.ContactsAdapter
 import kotlinx.coroutines.*
 import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ContactsFragment : Fragment() {
+class ContactsFragment : Fragment(),OnContactAddedListener {
     private val binding by lazy { FragmentContactsBinding.inflate(layoutInflater) }
 
     private var navigationVisibilityListener: NavVisibilityListener? = null
@@ -105,8 +108,8 @@ class ContactsFragment : Fragment() {
         addControl()
 
         binding.fabAdd.setOnClickListener{
-            Toast.makeText(context,"Floating button",Toast.LENGTH_LONG).show()
             val dialogFragment = PopUpFragment()
+            dialogFragment.contactAddedListener = this
             dialogFragment.show(requireFragmentManager(), "dialog")
         }
 
@@ -165,7 +168,6 @@ class ContactsFragment : Fragment() {
 
     @SuppressLint("Range", "NotifyDataSetChanged")
     private fun readContact() {
-
         var contacts = Contacts()
         val uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
         val cursor: Cursor? = context?.contentResolver?.query(
@@ -173,8 +175,7 @@ class ContactsFragment : Fragment() {
             null,
             null,
             null,
-            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC"
-        )
+            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC")
         if (cursor!!.count > 0) {
             cursor.moveToFirst()
 
@@ -228,12 +229,9 @@ class ContactsFragment : Fragment() {
         binding.recycleContacts.adapter = adapter
     }
 
-    private fun hideNavigation() {
-        navigationVisibilityListener?.setNavigationVisibility(false)
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onContactAdded(contacts: Contacts) {
+        listContacts.add(contacts)
+        adapterr.notifyItemInserted(listContacts.size -1)
     }
-
-    private fun showNavigation() {
-        navigationVisibilityListener?.setNavigationVisibility(true)
-    }
-
 }
