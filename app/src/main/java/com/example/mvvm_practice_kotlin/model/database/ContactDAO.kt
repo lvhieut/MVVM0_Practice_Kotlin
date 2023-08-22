@@ -5,15 +5,16 @@ import com.example.mvvm_practice_kotlin.model.entities.Contacts
 
 @Dao
 interface ContactDAO {
-    @Insert
-    fun insertContact(contact: Contacts)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertContact(contact: Contacts)
 
     @Update
-    fun updateContact(contact: Contacts)
+    suspend fun updateContact(contact: List<Contacts>)
 
     @Delete
-    fun deleteContact(contact: Contacts)
+    suspend fun deleteContact(contact: Contacts)
 
     @Query("SELECT * FROM contacts")
-    fun getAllContacts(): List<Contacts>
+    suspend fun getAllContacts(): List<Contacts>
+
 }

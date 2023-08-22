@@ -1,20 +1,24 @@
 package com.example.mvvm_practice_kotlin.view.adapter
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mvvm_practice_kotlin.App
 import com.example.mvvm_practice_kotlin.R
 import com.example.mvvm_practice_kotlin.comon.Common
-import com.example.mvvm_practice_kotlin.comon.Common.VIEWTYPE_CONTACT
-import com.example.mvvm_practice_kotlin.comon.Common.VIEWTYPE_GROUP
 import com.example.mvvm_practice_kotlin.model.entities.Contacts
 import com.example.mvvm_practice_kotlin.view.fragment.ContactsFragment
 
@@ -23,20 +27,11 @@ class ContactsAdapter(private var list: List<Contacts>, private val context: Con
     RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     inner class GroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
          var tv_groupTitle: TextView
         init {
             tv_groupTitle = itemView.findViewById(R.id.tvGroupTitle) as TextView
         }
-//         val tv_Name: TextView = itemView.findViewById(R.id.tvName)
-//         val tv_PhoneNum: TextView = itemView.findViewById(R.id.tvNumberPhone)
-//        fun bind(contacts: Contacts) {
-//            tv_Name.text = contacts.name
-//            tv_PhoneNum.text = contacts.phone
-//        }
     }
-
-
 
     inner class ContactsViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
          var tv_Name: TextView
@@ -47,7 +42,6 @@ class ContactsAdapter(private var list: List<Contacts>, private val context: Con
             tv_PhoneNum = itemView.findViewById(R.id.tvNumberPhone) as TextView
             contactAvatar = itemView.findViewById(R.id.imgContacsAvatar) as ImageView
         }
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -58,33 +52,20 @@ class ContactsAdapter(private var list: List<Contacts>, private val context: Con
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : RecyclerView.ViewHolder {
-//        val view: View = LayoutInflater.from(context).inflate(R.layout.view_item, parent, false)
-//        //lay 1 layout tu moi truong giao dien sang moi truong code
-//        return GroupViewHolder(view)
+
         val inflater = LayoutInflater.from(context)
-        when(viewType){
-            Common.VIEWTYPE_GROUP -> {
-                val group = inflater.inflate(R.layout.group_layout,parent,false) as ViewGroup
+        return if (viewType == Common.VIEWTYPE_GROUP){
+            val group = inflater.inflate(R.layout.group_layout,parent,false) as ViewGroup
                 return GroupViewHolder(group)
-            }
-            Common.VIEWTYPE_CONTACT -> {
-                val contactLayout = inflater.inflate(R.layout.view_item,parent,false) as ViewGroup
+        } else{
+            val contactLayout = inflater.inflate(R.layout.view_item,parent,false) as ViewGroup
                 return ContactsViewHolder(contactLayout)
-            }
-            else -> {
-                val group = inflater.inflate(R.layout.group_layout,parent,false) as ViewGroup
-                return GroupViewHolder(group)
-            }
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return list[position].viewType
-    }
+
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-//        holder.bind(list[position])
-//        holder.itemView.requestLayout()// yêu cầu cập nhật lại giao diện
 
         if (viewHolder is GroupViewHolder){
             viewHolder.tv_groupTitle.text = list[position].name
@@ -95,9 +76,22 @@ class ContactsAdapter(private var list: List<Contacts>, private val context: Con
         else if (viewHolder is ContactsViewHolder){
             viewHolder.tv_Name.text = list[position].name
             viewHolder.tv_PhoneNum.text = list[position].phone
-            val drawable = Color.BLUE
-            viewHolder.contactAvatar.setColorFilter(drawable)
+            viewHolder.contactAvatar.setColorFilter(Color.GRAY)
+            // Call
+            viewHolder.itemView.setOnClickListener {
+                val phoneNumber = list[position].phone
+                val callIntent = Intent(Intent.ACTION_CALL)
+                callIntent.data = Uri.parse("tel:$phoneNumber")
+                //check quyền và thực hiện cuộc gọi
+                if (ContextCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                    context.startActivity(callIntent)
+                } else {
+                    // Yêu cầu cấp quyền CALL_PHONE nếu chưa có
+                    ActivityCompat.requestPermissions(context as Activity, arrayOf(Manifest.permission.CALL_PHONE), 111)
+                }
+            }
         }
+        viewHolder.itemView.requestLayout()// yêu cầu cập nhật lại giao diện
     }
 
 
@@ -105,8 +99,19 @@ class ContactsAdapter(private var list: List<Contacts>, private val context: Con
         return list.size
     }
 
+    //Ánh xạ dữ liệu thành các viewtype tương ứng
+    override fun getItemViewType(position: Int): Int {
+        return  list[position].viewType
+    }
 
+    private var contactList: List<Contacts> = emptyList()
 
+    @SuppressLint("NotifyDataSetChanged")
+    suspend fun updateData(newList: List<Contacts>) {
+        contactList = newList
+        App.database.contactDao().updateContact(contactList)
+        notifyDataSetChanged()
+    }
 
 }
 

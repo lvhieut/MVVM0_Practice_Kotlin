@@ -15,5 +15,6 @@ interface OnCallBack {
     fun FormatEmail()
     fun FormatPassword()
     fun InvalidEmail()
+    fun setNavigationVisibility(isVisible: Boolean)
 //    fun InvalidPassword()
 }

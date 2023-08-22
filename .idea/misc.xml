@@ -3,15 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1635" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/add_adtname_bg.xml" value="0.1635" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/baseline_email_24.xml" value="0.1535" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/baseline_lock_24.xml" value="0.1605" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/bg_gray_10.xml" value="0.1635" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/bg_green_10.xml" value="0.1635" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/bg_yellow.xml" value="0.1635" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/buttoncustom.xml" value="0.1535" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/circle_button.xml" value="0.1635" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/diaglog_background.xml" value="0.1635" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/edt_find.xml" value="0.1605" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1635" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/ic_baseline_find_in_page_24.xml" value="0.1605" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1605" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/ic_baseline_keyboard_backspace_24.xml" value="0.1605" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1635" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1605" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/ic_baseline_sync_24.xml" value="0.1605" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1635" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/input.xml" value="0.1535" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/drawable/search_layout.xml" value="0.1605" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/layout/activity_alphabet.xml" value="0.2076923076923077" />
@@ -22,7 +32,9 @@
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/layout/alphabet_layout.xml" value="0.190625" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/layout/fragment_contacts.xml" value="0.264" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/layout/fragment_pop_up.xml" value="0.25416666666666665" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/layout/group_layout.xml" value="0.176" />
+        <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/layout/layout_dialog_add.xml" value="0.25416666666666665" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/layout/name_alphabet_item.xml" value="0.2" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/layout/view_item.xml" value="0.264" />
         <entry key="..\:/Project Androi/MVVM_Practice_Kotlin/app/src/main/res/menu/bottom_nav.xml" value="0.11197916666666667" />

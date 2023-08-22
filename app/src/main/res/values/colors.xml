@@ -12,4 +12,7 @@
     <color name="colorPrimaryDark">#6539ba</color>
     <color name="colorAccent">#FF4081</color>
     <color name="bgBottomNavigation">#fe485a</color>
+    <color name="yellow">#FBC02D</color>
+    <color name="darkGray">#686765</color>
+    <color name="green">#84EA2B</color>
 </resources>

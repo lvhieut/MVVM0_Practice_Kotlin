@@ -15,7 +15,9 @@ data class Contacts(
     var phone: String = "",
     @ColumnInfo(name = "viewtype")
     var viewType: Int = -1
-)
+){
+    constructor(name: String, phone: String) : this(60,name = name,phone = phone,-1)
+}
 
 
 

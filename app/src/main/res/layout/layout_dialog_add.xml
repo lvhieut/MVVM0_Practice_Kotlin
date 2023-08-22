@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/diaglog_background"
+        android:layout_margin="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="Add contact"
+            android:textSize="16sp"
+            android:background="@drawable/bg_yellow" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New contact"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/edtAddName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:hint="Name of contact..."
+                android:background="@drawable/add_adtname_bg"
+                android:layout_marginTop="10dp" />
+
+            <EditText
+                android:id="@+id/edtAddNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:hint="Number phone..."
+                android:background="@drawable/add_adtname_bg"
+                android:layout_marginTop="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/btnCancel"
+                    android:layout_marginTop="10dp"
+                    android:text="Cancel"
+                    android:background="@drawable/bg_gray_10"
+                    android:layout_marginEnd="50dp" />
+
+                <Button
+                    android:id="@+id/btnOk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:text="OK"
+                    android:background="@drawable/bg_yellow_10" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

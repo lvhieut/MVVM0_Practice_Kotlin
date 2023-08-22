@@ -10,6 +10,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:id="@+id/imgContacsAvatar"
+        android:src="@drawable/ic_baseline_person_24"
         android:layout_marginRight="6dp"
         />
 

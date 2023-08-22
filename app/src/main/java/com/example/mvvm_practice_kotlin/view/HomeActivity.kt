@@ -20,6 +20,7 @@ class HomeActivity : AppCompatActivity() {
 
         replaceFragment(HomeFragment())
 
+
         binding.bottomNav.setOnItemSelectedListener {
 
             when (it.itemId) {

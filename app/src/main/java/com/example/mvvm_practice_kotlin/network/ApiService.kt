@@ -22,7 +22,7 @@ interface ApiService {
 //    companion object {
 //        const val BASE_URL = "https://api.themoviedb.org/3/"
 //
-//
+
 //        val gson: Gson = GsonBuilder()
 //            .setDateFormat("yyyy-MM-dd HH:mm:ss")
 //            .create()

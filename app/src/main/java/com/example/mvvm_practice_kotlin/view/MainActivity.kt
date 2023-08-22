@@ -2,23 +2,19 @@ package com.example.mvvm_practice_kotlin.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.view.View
 import android.view.WindowManager
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil.setContentView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.mvvm_practice_kotlin.R
+import com.example.mvvm_practice_kotlin.App
 import com.example.mvvm_practice_kotlin.databinding.ActivityMainBinding
+import com.example.mvvm_practice_kotlin.model.entities.Contacts
 import com.example.mvvm_practice_kotlin.utils.OnCallBack
 import com.example.mvvm_practice_kotlin.viewmodell.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
@@ -112,6 +108,20 @@ class MainActivity : AppCompatActivity(), OnCallBack {
     override fun InvalidEmail() {
         Toast.makeText(this, "Email or password is incorrect", Toast.LENGTH_LONG).show()
     }
+
+
+
+    override fun setNavigationVisibility(isVisible: Boolean) {
+        if (isVisible) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+        } else {
+            window.decorView.systemUiVisibility =
+                (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE)
+        }
+    }
+
+
+
 
 
 
