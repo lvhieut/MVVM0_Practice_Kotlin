@@ -147,7 +147,7 @@
                     App.database.contactDao().deleteAllContacts()
                     listContacts.clear()
                     Log.d("db", "$listContacts")
-                    getData()
+                    checkPermissionAndGetData()
                 }
             }
 
