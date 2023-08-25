@@ -29,7 +29,7 @@ class PopUpFragment : DialogFragment() {
 
     var listContacts: ArrayList<Contacts> = arrayListOf()
 
-    val adapter = context?.let { ContactsAdapter(listContacts, it) }
+    val adapter = context?.let { ContactsAdapter( it) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,10 +59,11 @@ class PopUpFragment : DialogFragment() {
             contactNumber = binding.edtAddNumber.text.toString()
 
             val newContact = Contacts(name = contactName, phone = contactNumber)
+
             try {
                 addContactToRoom(newContact)
                 contactAddedListener?.onContactAdded(newContact) // callback
-                dismiss()
+//                dismiss()
 
             } catch (e: Exception){
                 Log.e("Add contact", "Error: ${e.message}")
@@ -85,7 +86,7 @@ class PopUpFragment : DialogFragment() {
                 val contactList = App.database.contactDao().getAllContacts()
                 listContacts.clear()
                 listContacts.addAll(contactList)
-                adapter?.updateData(listContacts)
+                adapter?.setFilteredList(listContacts)
                 adapter?.notifyDataSetChanged()
                 Log.d("TAG", "${App.database.contactDao().getAllContacts()} ")
                 adapter?.notifyItemInserted(listContacts.size -1)

@@ -16,7 +16,6 @@ class AppRepository @Inject constructor(private val api: ApiService) {
 
     suspend fun login(userName: String, userPassword: String, token: String): Response<ReqToken> = withContext(Dispatchers.IO) {
         api.verifyLogin(User(userName, userPassword, token))
-
     }
 
 

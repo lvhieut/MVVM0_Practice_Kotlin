@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
+import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,10 +22,16 @@ import com.example.mvvm_practice_kotlin.R
 import com.example.mvvm_practice_kotlin.comon.Common
 import com.example.mvvm_practice_kotlin.model.entities.Contacts
 import com.example.mvvm_practice_kotlin.view.fragment.ContactsFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
-class ContactsAdapter(private var list: List<Contacts>, private val context: Context) :
+class ContactsAdapter(private val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+
+    private var listCt: List<Contacts> = emptyList()
+
 
     inner class GroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
          var tv_groupTitle: TextView
@@ -46,8 +53,22 @@ class ContactsAdapter(private var list: List<Contacts>, private val context: Con
 
     @SuppressLint("NotifyDataSetChanged")
     fun  setFilteredList(mList: List<Contacts>){
-        this.list = mList as ArrayList<Contacts>
+        this.listCt = mList as ArrayList<Contacts>
         notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun deleteItem(i :Int){
+        val oldListCt = listCt as ArrayList<Contacts>
+        oldListCt.removeAt(i)
+        notifyDataSetChanged()
+    }
+
+    fun addItemToList(constact: Contacts){
+        val oldListCt = listCt as ArrayList<Contacts>
+        oldListCt.add(constact)
+        listCt = oldListCt
+        notifyItemInserted(listCt.size-1)
     }
 
 
@@ -66,20 +87,21 @@ class ContactsAdapter(private var list: List<Contacts>, private val context: Con
 
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-
+        val item = listCt[position]
         if (viewHolder is GroupViewHolder){
-            viewHolder.tv_groupTitle.text = list[position].name
+            viewHolder.tv_groupTitle.text = item.name
             viewHolder.itemView.setOnClickListener{
                 (context as Activity).startActivityForResult(Intent(context,ContactsFragment::class.java),Common.RESULT_CODE)
             }
         }
         else if (viewHolder is ContactsViewHolder){
-            viewHolder.tv_Name.text = list[position].name
-            viewHolder.tv_PhoneNum.text = list[position].phone
+
+            viewHolder.tv_Name.text = item.name
+            viewHolder.tv_PhoneNum.text = item.phone
             viewHolder.contactAvatar.setColorFilter(Color.GRAY)
             // Call
             viewHolder.itemView.setOnClickListener {
-                val phoneNumber = list[position].phone
+                val phoneNumber = item.phone
                 val callIntent = Intent(Intent.ACTION_CALL)
                 callIntent.data = Uri.parse("tel:$phoneNumber")
                 //check quyền và thực hiện cuộc gọi
@@ -96,23 +118,13 @@ class ContactsAdapter(private var list: List<Contacts>, private val context: Con
 
 
     override fun getItemCount(): Int {
-        return list.size
+        return listCt.size
     }
 
     //Ánh xạ dữ liệu thành các viewtype tương ứng
     override fun getItemViewType(position: Int): Int {
-        return  list[position].viewType
+        return  listCt[position].viewType
     }
-
-    private var contactList: List<Contacts> = emptyList()
-
-    @SuppressLint("NotifyDataSetChanged")
-    suspend fun updateData(newList: List<Contacts>) {
-        contactList = newList
-        App.database.contactDao().updateContact(contactList)
-        notifyDataSetChanged()
-    }
-
 }
 
 

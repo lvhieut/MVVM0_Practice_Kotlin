@@ -1,17 +1,21 @@
 package com.example.mvvm_practice_kotlin.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.mvvm_practice_kotlin.R
 import com.example.mvvm_practice_kotlin.databinding.ActivityHomeBinding
+import com.example.mvvm_practice_kotlin.utils.BottomNavVisibilityListener
 import com.example.mvvm_practice_kotlin.view.fragment.ContactsFragment
 import com.example.mvvm_practice_kotlin.view.fragment.HomeFragment
 
-class HomeActivity : AppCompatActivity() {
-    private val binding by lazy {
-        ActivityHomeBinding.inflate(layoutInflater)
-    }
+class HomeActivity : AppCompatActivity(), BottomNavVisibilityListener {
+    private val binding by lazy { ActivityHomeBinding.inflate(layoutInflater) }
+
+    private var bottomNavVisibilityListener: BottomNavVisibilityListener? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,5 +45,13 @@ class HomeActivity : AppCompatActivity() {
         fmTransaction.replace(R.id.fmLayout, fragment)
         fmTransaction.addToBackStack(null)
         fmTransaction.commit()
+    }
+
+    override fun hideBottomNav() {
+        binding.bottomNav.visibility = View.GONE
+    }
+
+    override fun showBottomNav() {
+        binding.bottomNav.visibility = View.VISIBLE
     }
 }

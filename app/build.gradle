@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.mvvm_practice_kotlin"
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -65,6 +65,10 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.google.android.material:material:1.9.0'
 
+    //
+    implementation "androidx.navigation:navigation-fragment-ktx:2.7.1"
+    implementation "androidx.navigation:navigation-ui-ktx:2.7.1"
+
 
 
     //Dagger - Hilt
@@ -81,5 +85,10 @@ dependencies {
     annotationProcessor  "android.arch.persistence.room:compiler:1.1.1"
     kapt "androidx.room:room-compiler:2.5.2"
     implementation "androidx.room:room-ktx:2.5.2"
+
+    //
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    //xabaras
+    implementation 'it.xabaras.android:recyclerview-swipedecorator:1.4'
 }
 
